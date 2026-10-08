@@ -6,8 +6,6 @@ Backend tarafında **.NET 9 Minimal API**, **Onion Architecture** ve **CQRS + Me
 
 > *A multi-author, bilingual (Turkish / English) blog platform for developers. Built with .NET 9 Minimal API, Onion Architecture, CQRS + MediatR, EF Core, ASP.NET Core Identity + JWT on the backend and Angular 20 on the frontend.*
 
-![Ana sayfa](docs/screenshots/home.png)
-
 ---
 
 ## İçindekiler
