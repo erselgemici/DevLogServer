@@ -1,0 +1,29 @@
+<article class="post-card" [class.compact]="compact">
+  <a [routerLink]="['/blogdetails', blog.id]" class="post-img">
+    <img [src]="blog.coverImage" alt="" class="img-fluid">
+  </a>
+  <div class="post-body">
+    <div class="post-meta">
+      <span class="date">{{ blog.category?.categoryName }}</span>
+      <span class="mx-1">•</span>
+      <span>{{ blog.createdAt | date }}</span>
+      @if (blog.readingMinutes) {
+        <span class="mx-1">•</span>
+        <span><i class="bi bi-clock"></i> {{ blog.readingMinutes }} {{ 'blog.minRead' | t }}</span>
+      }
+    </div>
+    <h2><a [routerLink]="['/blogdetails', blog.id]">{{ blog.title }}</a></h2>
+    @if (!compact) {
+      <p>{{ blog.summary | excerpt:140 }}</p>
+    }
+    <div class="post-footer">
+      <div class="author">
+        <img [src]="blog.user?.imageUrl || 'assets/img/person-2.jpg'" alt="">
+        <span>{{ blog.user?.firstName }} {{ blog.user?.lastName }}</span>
+      </div>
+      @if (!compact) {
+        <a [routerLink]="['/blogdetails', blog.id]" class="readmore">{{ 'home.readMore' | t }} <i class="bi bi-arrow-right"></i></a>
+      }
+    </div>
+  </div>
+</article>

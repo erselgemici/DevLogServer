@@ -1,0 +1,41 @@
+.devlog-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 30px;
+}
+
+.page-btn {
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 10px;
+  background: #fff;
+  color: #334155;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.page-btn:hover:not(:disabled):not(.active) {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.page-btn.active {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border-color: transparent;
+  color: #fff;
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-dots {
+  padding: 0 4px;
+  color: #94a3b8;
+}

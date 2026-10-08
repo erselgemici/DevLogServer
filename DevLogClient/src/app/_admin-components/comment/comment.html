@@ -1,0 +1,50 @@
+<h3>{{ 'admin.comments' | t }}</h3>
+
+<!-- veri gelene kadar tablo yerine yükleniyor göstergesi -->
+<div *ngIf="loading" class="text-center py-5"><div class="spinner-border text-primary"></div></div>
+<table *ngIf="!loading" class="table table-bordered table-hover">
+  <thead>
+
+
+    <tr>
+      <th>#</th>
+      <th>{{ 'admin.name' | t }}</th>
+      <th>{{ 'admin.email' | t }}</th>
+      <th>{{ 'admin.comment' | t }}</th>
+      <th>{{ 'admin.date' | t }}</th>
+      <th>{{ 'admin.blog' | t }}</th>
+      <th>{{ 'admin.options' | t }}</th>
+    </tr>
+  </thead>
+<tbody>
+  <tr *ngFor="let item of pagedComments; let i = index;">
+    <th>{{ (page - 1) * pageSize + i + 1 }}</th>
+    <td>{{item.firstName}} {{item.lastName}}</td>
+    <td>{{item.email}}</td>
+    <!-- yorumlar uzun olduğu için tabloda kısaltıyorum, üstüne gelince tamamı görünüyor (title) -->
+    <td [title]="item.body">{{ item.body | excerpt:120 }}</td>
+    <td>{{item.commentDate | date}}</td>
+    <td>{{item.blog?.title}}</td>
+    <td>
+      <button class="btn btn-outline-danger" (click)="delete(item.id)"> <i class="fa fa-trash"></i>  </button>
+
+    </td>
+  </tr>
+</tbody>
+</table>
+
+<!-- sayfalama: site tarafındaki pagination component'ini burada da kullanıyorum -->
+<app-pagination [totalItems]="comments.length" [pageSize]="pageSize" [currentPage]="page" (pageChange)="page = $event"></app-pagination>
+
+
+
+
+
+
+
+
+
+
+
+
+

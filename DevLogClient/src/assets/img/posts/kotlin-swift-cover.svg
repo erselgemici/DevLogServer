@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3730a3"/><stop offset="1" stop-color="#6366f1"/></linearGradient>
+<pattern id="p" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.07"/></pattern></defs>
+<rect width="1200" height="700" fill="url(#g)"/><rect width="1200" height="700" fill="url(#p)"/>
+<circle cx="1050" cy="120" r="260" fill="#ffffff" fill-opacity="0.06"/><circle cx="120" cy="650" r="200" fill="#000000" fill-opacity="0.08"/>
+<text x="80" y="170" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="48" fill="#ffffff" fill-opacity="0.45">&lt;/&gt;</text>
+<text x="80" y="242" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="92" font-weight="700" fill="#ffffff">Kotlin &amp; Swift</text>
+<rect x="80" y="277" width="120" height="8" rx="4" fill="#ffffff" fill-opacity="0.8"/>
+<text x="1120" y="640" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="200" font-weight="800" fill="#ffffff" fill-opacity="0.18" text-anchor="end">2014</text>
+<text x="80" y="640" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#ffffff" fill-opacity="0.85">DevLog</text>
+</svg>

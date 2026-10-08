@@ -1,0 +1,5 @@
+/* başlık, chip ve boş durum stilleri devlog-theme.css'te (.list-page), arama sayfası da kullanıyor */
+.hash {
+  color: #6366f1;
+  margin-right: 2px;
+}

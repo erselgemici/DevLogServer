@@ -1,0 +1,45 @@
+<section class="category-page section">
+  <div class="container">
+
+    <!-- sayfa başlığı -->
+    <div class="category-header">
+      <a routerLink="/" class="back-link"><i class="bi bi-arrow-left"></i> {{ 'menu.home' | t }}</a>
+      <h1>{{ category?.categoryName }}</h1>
+      @if (!loading) {
+        <p>{{ blogs.length }} {{ 'category.postCount' | t }}</p>
+      }
+    </div>
+
+    <!-- kategoriler arasında hızlı geçiş -->
+    <div class="category-chips">
+      @for (item of categories; track item.id) {
+        <a [routerLink]="['/category', item.id]" [class.active]="item.id === categoryId">
+          {{ item.categoryName }} <span>{{ item.blogs?.length || 0 }}</span>
+        </a>
+      }
+    </div>
+
+    @if (loading) {
+      <div class="text-center py-5"><div class="spinner-border text-primary"></div></div>
+    } @else if (!blogs.length) {
+      <div class="empty-state">{{ 'category.empty' | t }}</div>
+    } @else {
+
+      <div class="row gy-4">
+        @for (blog of pagedBlogs; track blog.id) {
+        <div class="col-lg-4 col-md-6">
+          <app-post-card [blog]="blog"></app-post-card>
+        </div>
+        }
+      </div>
+
+      <app-pagination
+        [totalItems]="blogs.length"
+        [pageSize]="pageSize"
+        [currentPage]="currentPage"
+        (pageChange)="onPageChange($event)">
+      </app-pagination>
+    }
+
+  </div>
+</section>

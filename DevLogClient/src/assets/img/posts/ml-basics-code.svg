@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4c1d95"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+<rect width="1200" height="630" fill="url(#g)"/>
+<rect x="60" y="50" width="1080" height="530" rx="16" fill="#1e1e2e"/>
+<circle cx="100" cy="88" r="9" fill="#ff5f57"/><circle cx="130" cy="88" r="9" fill="#febc2e"/><circle cx="160" cy="88" r="9" fill="#28c840"/>
+<text x="600" y="95" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" fill="#a6adc8" text-anchor="middle">model.py</text>
+<text x="100" y="160" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 1</text>
+<text x="150" y="160" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">from sklearn.model_selection import train_test_split</text>
+<text x="100" y="204" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 2</text>
+<text x="150" y="204" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">from sklearn.linear_model import LogisticRegression</text>
+<text x="100" y="248" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 3</text>
+<text x="150" y="248" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve"></text>
+<text x="100" y="292" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 4</text>
+<text x="150" y="292" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">X_train, X_test, y_train, y_test = train_test_split(X, y)</text>
+<text x="100" y="336" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 5</text>
+<text x="150" y="336" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">model = LogisticRegression().fit(X_train, y_train)</text>
+<text x="100" y="380" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 6</text>
+<text x="150" y="380" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">print(model.score(X_test, y_test))</text>
+</svg>

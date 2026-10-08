@@ -1,0 +1,33 @@
+<section id="comment-form" class="comment-form section">
+  <div class="container">
+
+    <form #commentForm="ngForm" (ngSubmit)="createComment()">
+
+      <h4>{{ 'comment.title' | t }}</h4>
+      <p>{{ 'comment.info' | t }}</p>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <input name="firstName" [(ngModel)]="newComment.firstName" type="text" class="form-control" [placeholder]="'comment.firstName' | t" required>
+        </div>
+        <div class="col-md-6 form-group">
+          <input name="lastName" [(ngModel)]="newComment.lastName" type="text" class="form-control" [placeholder]="'comment.lastName' | t" required>
+        </div>
+        <div class="col-md-6 form-group">
+          <input name="email" [(ngModel)]="newComment.email" type="email" class="form-control" [placeholder]="'comment.email' | t" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col form-group">
+          <textarea name="body" [(ngModel)]="newComment.body" class="form-control" [placeholder]="'comment.body' | t" required></textarea>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary" [disabled]="commentForm.invalid">{{ 'comment.submit' | t }}</button>
+      </div>
+
+    </form>
+
+  </div>
+</section>

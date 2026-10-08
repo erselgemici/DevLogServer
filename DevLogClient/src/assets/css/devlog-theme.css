@@ -1,0 +1,560 @@
+/*--------------------------------------------------------------
+# DevLog teması
+# template'in main.css dosyasından sonra yükleniyor, renkleri ve
+# arka planları yazılım temasına uygun hale getiriyor
+--------------------------------------------------------------*/
+:root {
+  --default-font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --heading-font: "Inter", system-ui, sans-serif;
+  --nav-font: "Inter", sans-serif;
+  --code-font: "JetBrains Mono", Consolas, monospace;
+
+  --background-color: #f5f7fb;
+  --default-color: #334155;
+  --heading-color: #0f172a;
+  --accent-color: #6366f1;
+  --surface-color: #ffffff;
+  --nav-color: #475569;
+  --nav-hover-color: #6366f1;
+  --nav-dropdown-hover-color: #6366f1;
+
+  --devlog-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+  --devlog-dark: #0b1020;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading-font);
+  letter-spacing: -0.01em;
+}
+
+/* sayfa arka planı: açık renk + hafif nokta deseni + köşelerde renkli ışık */
+body {
+  background-color: var(--background-color);
+  background-image:
+    radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.10), transparent 35%),
+    radial-gradient(circle at 100% 30%, rgba(6, 182, 212, 0.08), transparent 30%),
+    radial-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+  background-size: auto, auto, 22px 22px;
+  background-attachment: fixed;
+}
+
+section,
+.section {
+  background-color: transparent;
+}
+
+/* header: yarı saydam, bulanık arka plan */
+.header {
+  --background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.12);
+}
+
+.header .logo h1,
+.footer .sitename {
+  font-family: var(--code-font);
+  font-weight: 700;
+  background: var(--devlog-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.header .logo h1::before,
+.footer .footer-about .sitename::before {
+  content: "</> ";
+}
+
+/* slider: kapak görselinin üzerine koyu gradyan */
+.slider .swiper-slide::before {
+  background: linear-gradient(180deg, rgba(11, 16, 32, 0.05) 0%, rgba(11, 16, 32, 0.85) 100%) !important;
+}
+
+.slider .swiper-slide {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* kategori bölümleri: kart görünümü, sırayla farklı renk tonları */
+.culture-category {
+  padding: 40px 0;
+}
+
+.culture-category > .container {
+  background: var(--surface-color);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  border-top: 5px solid #6366f1;
+}
+
+.culture-category:nth-of-type(6n + 2) > .container { border-top-color: #6366f1; }
+.culture-category:nth-of-type(6n + 3) > .container { border-top-color: #14b8a6; }
+.culture-category:nth-of-type(6n + 4) > .container { border-top-color: #f59e0b; }
+.culture-category:nth-of-type(6n + 5) > .container { border-top-color: #22c55e; }
+.culture-category:nth-of-type(6n + 6) > .container { border-top-color: #d946ef; }
+.culture-category:nth-of-type(6n + 1) > .container { border-top-color: #f97316; }
+
+.culture-category .section-title {
+  padding-bottom: 10px;
+}
+
+.culture-category .section-title.container {
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+  padding: 0 15px;
+}
+
+.section-title h2 {
+  font-weight: 800;
+  position: relative;
+  padding-left: 16px;
+}
+
+.section-title h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 15%;
+  height: 70%;
+  width: 5px;
+  border-radius: 4px;
+  background: var(--devlog-gradient);
+}
+
+.culture-category img,
+.blog-details .post-img img,
+.blog-details .content img {
+  border-radius: 12px;
+}
+
+.post-meta .date {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+/* blog detay */
+.blog-details .article,
+.blog-comments .container,
+.comment-form form,
+.widget-item {
+  background: var(--surface-color);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(99, 102, 241, 0.08);
+}
+
+.blog-comments .container {
+  padding: 30px;
+}
+
+.blog-details .title {
+  font-weight: 800;
+}
+
+.widget-item .widget-title {
+  font-weight: 700;
+}
+
+.blog-author-widget img.rounded-circle {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border: 3px solid transparent;
+  background: var(--devlog-gradient) border-box;
+}
+
+/* sayfa başlığı (iletişim vb.) */
+.page-title {
+  background: var(--devlog-gradient);
+  padding: 40px 0;
+  color: #fff;
+}
+
+.page-title h1,
+.page-title .breadcrumbs ol a,
+.page-title .breadcrumbs ol li {
+  color: #fff;
+}
+
+/* butonlar */
+.comment-form .btn-primary,
+.contact .php-email-form button[type=submit] {
+  background: var(--devlog-gradient);
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 28px;
+  color: #fff;
+}
+
+.contact .info-item,
+.contact .php-email-form {
+  background: var(--surface-color);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.contact .info-item {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.contact .info-item i {
+  background: var(--devlog-gradient);
+  color: #fff;
+}
+
+/* footer: koyu lacivert + gradyan çizgi */
+.footer.dark-background {
+  --background-color: var(--devlog-dark);
+  background-image: radial-gradient(circle at 100% 0%, rgba(99, 102, 241, 0.25), transparent 40%);
+  border-top: 4px solid transparent;
+  border-image: var(--devlog-gradient) 1;
+}
+
+.footer .social-links a:hover {
+  background: var(--devlog-gradient);
+  border-color: transparent;
+}
+
+/* kod görselleri ve satır içi kodlar */
+code,
+pre {
+  font-family: var(--code-font);
+}
+
+.scroll-top {
+  background: var(--devlog-gradient);
+}
+
+/*--------------------------------------------------------------
+# Admin paneli
+--------------------------------------------------------------*/
+.admin-sidebar {
+  background: linear-gradient(180deg, #0b1020 0%, #1e1b4b 100%) !important;
+}
+
+.admin-sidebar .nav-link.active {
+  background: var(--devlog-gradient) !important;
+}
+
+.admin-content {
+  background-color: #f5f7fb;
+  background-image:
+    radial-gradient(circle at 100% 0%, rgba(99, 102, 241, 0.10), transparent 35%),
+    radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+  background-size: auto, 22px 22px;
+}
+
+.admin-content h3 {
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.admin-content .table {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.admin-content .table thead th {
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.contact .php-email-form {
+  padding: 30px;
+}
+
+/* ana sayfada kategori başlığının yanındaki "Tümünü gör" linki */
+.culture-category .view-all {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-color);
+  white-space: nowrap;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.08);
+  transition: 0.2s;
+}
+
+.culture-category .view-all:hover {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+/*--------------------------------------------------------------
+# blog içeriği (content pipe'ın ürettiği html)
+# innerHTML ile geldiği için component css'i yerine burada yazdım
+# NOT: Angular component css'ini sadece o component'in kendi html'ine uyguluyor
+# (view encapsulation). innerHTML ile sonradan gelen etiketlere uygulanmıyor,
+# o yüzden bu stilleri global css'e koydum
+--------------------------------------------------------------*/
+.blog-content {
+  margin-top: 24px;
+  font-size: 17px;
+  line-height: 1.85;
+  color: #334155;
+}
+
+.blog-content p {
+  margin-bottom: 18px;
+}
+
+.blog-content h3 {
+  font-size: 23px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 36px 0 14px;
+  padding-left: 14px;
+  border-left: 4px solid var(--accent-color);
+}
+
+.blog-content ul {
+  margin: 0 0 20px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.blog-content ul li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 8px;
+}
+
+.blog-content ul li::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--devlog-gradient);
+}
+
+.blog-content code {
+  font-family: var(--code-font);
+  font-size: 0.88em;
+  background: rgba(99, 102, 241, 0.1);
+  color: #4338ca;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* kod blokları: koyu tema, uzun satırlarda yatay kaydırma */
+.blog-content .code-block {
+  position: relative;
+  margin: 8px 0 24px;
+  border-radius: 12px;
+  background: #1e1e2e;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+}
+
+.blog-content .code-block pre {
+  margin: 0;
+  padding: 32px 20px 18px;
+  overflow-x: auto;
+}
+
+.blog-content .code-block code {
+  display: block;
+  background: transparent;
+  color: #cdd6f4;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre;
+}
+
+.blog-content .code-lang {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  font-family: var(--code-font);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #7f849c;
+}
+
+/* başlığa kaydırınca sabit header'ın altında kalmasın */
+.blog-content h3 {
+  scroll-margin-top: 100px;
+}
+
+/* highlight.js temasının arka planını kendi kod bloğu rengimle değiştiriyorum */
+.blog-content .code-block .hljs {
+  background: transparent;
+  padding: 0;
+}
+
+/* kod bloğundaki kopyala butonu (blogdetails.ts sonradan ekliyor, o yüzden global css) */
+.blog-content .copy-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #cdd6f4;
+  font-size: 12px;
+  opacity: 0;
+  transition: 0.2s;
+}
+
+/* butonu sadece kodun üstüne gelince gösteriyorum, mobilde hover olmadığı için hep görünür */
+.blog-content .code-block:hover .copy-btn,
+.blog-content .copy-btn.copied {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .blog-content .copy-btn {
+    opacity: 1;
+  }
+}
+
+.blog-content .copy-btn.copied {
+  color: #a6e3a1;
+  border-color: #a6e3a1;
+}
+
+/*--------------------------------------------------------------
+# liste sayfaları (etiket ve arama sayfası ortak)
+--------------------------------------------------------------*/
+.list-page {
+  padding: 40px 0 60px;
+}
+
+.list-header {
+  margin-bottom: 20px;
+}
+
+.list-header h1 {
+  font-weight: 800;
+  font-size: 34px;
+  margin: 8px 0 4px;
+}
+
+.list-header p {
+  color: #64748b;
+  margin: 0;
+}
+
+.list-page .back-link {
+  color: #6366f1;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.list-page .empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: #fff;
+  border-radius: 16px;
+  color: #64748b;
+}
+
+/* etiket chip'leri: hem etiket sayfasında hem ana sayfadaki "popüler konular"da */
+.tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+.tag-chips a {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.tag-chips a span {
+  margin-left: 4px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.tag-chips a:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.tag-chips a.active {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border-color: transparent;
+  color: #fff;
+}
+
+/* header'daki arama kutusu */
+.header-search {
+  display: flex;
+  align-items: center;
+  margin-left: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  background: #fff;
+}
+
+.header-search input {
+  border: 0;
+  outline: none;
+  width: 140px;
+  font-size: 14px;
+  background: transparent;
+}
+
+.header-search i {
+  color: #6366f1;
+}
+
+@media (max-width: 1199px) {
+  .header-search input {
+    width: 90px;
+  }
+}
+
+/* ana sayfadaki popüler konular bölümü */
+.popular-topics {
+  padding: 30px 0 0;
+}
+
+.popular-topics h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+/* admin tablolarındaki sil / düzenle butonları
+   NOT: butonlar inline olduğu için sütun daralınca ikincisi alt satıra kayıyordu.
+   flex + nowrap ile her zaman yan yana ve aynı hizada duruyorlar */
+.table-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.table-actions .btn {
+  width: 40px;
+  height: 38px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* tablo hücrelerindeki içerik (resim, yazı, butonlar) dikeyde ortalı dursun */
+.table td {
+  vertical-align: middle;
+}

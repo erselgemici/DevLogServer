@@ -1,0 +1,71 @@
+.category-page {
+  padding: 40px 0 60px;
+}
+
+.category-header {
+  margin-bottom: 20px;
+}
+
+.category-header h1 {
+  font-weight: 800;
+  font-size: 34px;
+  margin: 8px 0 4px;
+}
+
+.category-header p {
+  color: #64748b;
+  margin: 0;
+}
+
+.back-link {
+  color: #6366f1;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* kategori seçme butonları, mobilde yana kaydırılabiliyor */
+.category-chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 25px;
+}
+
+.category-chips a {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: 0.2s;
+}
+
+.category-chips a span {
+  margin-left: 4px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.category-chips a:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.category-chips a.active {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border-color: transparent;
+  color: #fff;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: #fff;
+  border-radius: 16px;
+  color: #64748b;
+}

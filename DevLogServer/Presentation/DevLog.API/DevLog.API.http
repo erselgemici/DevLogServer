@@ -1,0 +1,45 @@
+@host = https://localhost:7000/api
+@token = YOUR_TOKEN
+
+### Register
+POST {{host}}/users/register
+Content-Type: application/json
+
+{
+  "firstName": "Admin",
+  "lastName": "User",
+  "email": "admin@devlog.com",
+  "userName": "admin",
+  "password": "Admin123!"
+}
+
+### Login
+POST {{host}}/users/login
+Content-Type: application/json
+
+{
+  "email": "admin@devlog.com",
+  "password": "Admin123!"
+}
+
+### Categories
+GET {{host}}/categories
+
+### Create Category
+POST {{host}}/categories
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "categoryName": "Software"
+}
+
+### Blogs
+GET {{host}}/blogs
+
+### Latest 5 Blogs
+GET {{host}}/blogs/Latest5Blogs
+
+### Unread Messages
+GET {{host}}/messages/unread
+Authorization: Bearer {{token}}

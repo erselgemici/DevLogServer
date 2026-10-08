@@ -1,0 +1,33 @@
+<section class="list-page section">
+  <div class="container">
+
+    <div class="list-header">
+      <h1>{{ 'search.title' | t }}</h1>
+    </div>
+
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input type="text" [(ngModel)]="text" (input)="onInput()" [placeholder]="'search.placeholder' | t" autofocus>
+      @if (loading) {
+        <div class="spinner-border spinner-border-sm text-primary"></div>
+      }
+    </div>
+
+    @if (searched && !loading) {
+      <p class="result-info">{{ results.length }} {{ 'search.results' | t }}</p>
+    }
+
+    @if (searched && !loading && !results.length) {
+      <div class="empty-state">{{ 'search.empty' | t }}</div>
+    }
+
+    <div class="row gy-4">
+      @for (blog of results; track blog.id) {
+        <div class="col-lg-4 col-md-6">
+          <app-post-card [blog]="blog"></app-post-card>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>

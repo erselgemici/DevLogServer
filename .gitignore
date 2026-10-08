@@ -1,0 +1,32 @@
+# .NET
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.suo
+*.userprefs
+*.rsuser
+[Dd]ebug/
+[Rr]elease/
+TestResults/
+.idea/
+
+# Angular / Node
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# temanın orijinal html dosyaları (sadece referans için duruyor, projede kullanılmıyor)
+DevLogClient/template/
+
+# geçici dosyalar
+*.tgz
+*.log
+
+# linkedin paylaşım taslakları ve görselleri (repoya girmesin, sadece bende dursun)
+paylasim/

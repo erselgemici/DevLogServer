@@ -1,0 +1,175 @@
+@if (blog) {
+<!-- okuma ilerleme çubuğu, header'ın hemen altında sabit duruyor -->
+<div class="reading-progress" [style.width.%]="progress"></div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-8">
+
+      <!-- Blog Details Section -->
+      <section id="blog-details" class="blog-details section">
+        <div class="container">
+
+          <article class="article">
+
+            <div class="post-img">
+              <img src="{{blog.coverImage}}" alt="" class="img-fluid">
+            </div>
+
+            <h2 class="title">{{blog.title}}</h2>
+
+            <div class="meta-top">
+              <ul>
+                <li class="d-flex align-items-center"><i class="bi bi-person"></i> <span>{{blog.user?.firstName}} {{blog.user?.lastName}}</span></li>
+                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <time>{{blog.createdAt | date:'longDate'}}</time></li>
+                <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#blog-comments">{{blog.comments?.length}} {{ 'blog.comments' | t }}</a></li>
+                <li class="d-flex align-items-center"><i class="bi bi-hourglass-split"></i> <span>{{blog.readingMinutes}} {{ 'blog.minRead' | t }}</span></li>
+              </ul>
+            </div><!-- End meta top -->
+
+            <!-- yazının konuları, tıklayınca o konudaki bütün yazılar -->
+            @if (blog.tags?.length) {
+              <div class="post-tags">
+                @for (tag of blog.tags; track tag.id) {
+                  <a [routerLink]="['/tag', tag.slug]">#{{ tag.name }}</a>
+                }
+              </div>
+            }
+
+            <div class="content">
+              <img src="{{blog.blogImage}}" class="img-fluid" alt="">
+              <!-- içerikteki başlık, liste ve kod bloklarını content pipe'ı html'e çeviriyor -->
+              <div class="blog-content" [innerHTML]="blog.description | content"></div>
+            </div><!-- End post content -->
+
+            <div class="meta-bottom">
+              <i class="bi bi-folder"></i>
+              <ul class="cats">
+                <li><a [routerLink]="['/category', blog.category?.id]">{{blog.category?.categoryName}}</a></li>
+              </ul>
+            </div><!-- End meta bottom -->
+
+          </article>
+
+        </div>
+      </section><!-- /Blog Details Section -->
+
+      <!-- aynı konuda farklı yazarların yazıları -->
+      @if (relatedBlogs.length) {
+        <section class="related-posts">
+          <h4>{{ 'blog.related' | t }}</h4>
+          <div class="row gy-4">
+            @for (item of relatedBlogs; track item.id) {
+              <div class="col-md-6">
+                <app-post-card [blog]="item" [compact]="true"></app-post-card>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      <!-- Blog Comments Section -->
+      <section id="blog-comments" class="blog-comments section">
+        <div class="container">
+
+          <h4 class="comments-count">{{blog.comments?.length}} {{ 'blog.comments' | t }}</h4>
+
+          @for (item of blog.comments; track item.id; let i = $index) {
+            <div class="comment">
+              <div class="d-flex">
+                <!-- yorum yapanın fotoğrafı olmadığı için ad-soyad baş harflerinden avatar -->
+                <div class="comment-img"><span class="initials-avatar">{{ item.firstName?.charAt(0) }}{{ item.lastName?.charAt(0) }}</span></div>
+                <div class="flex-grow-1">
+                  <h5>{{item.firstName}} {{item.lastName}}</h5>
+                  <time>{{item.commentDate | date:'medium'}}</time>
+                  <p>{{item.body}}</p>
+
+                  <!-- yoruma gelen cevaplar (alt yorum), yazarın cevabıysa fotoğrafı ve "Yazar" etiketi -->
+                  @for (reply of item.subComments; track reply.id) {
+                    <div class="comment-reply">
+                      @if (isAuthor(reply.firstName, reply.lastName)) {
+                        <img [src]="blog.user?.imageUrl" class="reply-avatar" alt="">
+                      } @else {
+                        <span class="initials-avatar small">{{ reply.firstName?.charAt(0) }}{{ reply.lastName?.charAt(0) }}</span>
+                      }
+                      <div>
+                        <h6>
+                          {{ reply.firstName }} {{ reply.lastName }}
+                          @if (isAuthor(reply.firstName, reply.lastName)) {
+                            <span class="author-badge">{{ 'admin.author' | t }}</span>
+                          }
+                        </h6>
+                        <time>{{ reply.commentDate | date:'medium' }}</time>
+                        <p>{{ reply.body }}</p>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          } @empty {
+            <p>{{ 'blog.noComments' | t }}</p>
+          }
+
+        </div>
+      </section><!-- /Blog Comments Section -->
+
+      <!-- Comment Form Section -->
+      <comment-form></comment-form>
+
+    </div>
+
+    <div class="col-lg-4 sidebar">
+
+      <div class="widgets-container">
+
+        <!-- Blog Author Widget -->
+        <div class="blog-author-widget widget-item">
+          <div class="d-flex flex-column align-items-center">
+            <div class="d-flex align-items-center w-100">
+              <img [src]="blog.user?.imageUrl || 'assets/img/blog/blog-author.jpg'" class="rounded-circle flex-shrink-0" alt="">
+              <div>
+                <h4>{{blog.user?.firstName}} {{blog.user?.lastName}}</h4>
+              </div>
+            </div>
+            <p>{{ 'blog.authorBio' | t }}</p>
+          </div>
+        </div><!--/Blog Author Widget -->
+
+        <!-- Recent Posts Widget -->
+        <div class="recent-posts-widget widget-item">
+          <h3 class="widget-title">{{ 'blog.recentPosts' | t }}</h3>
+          @for (item of latestBlogs; track item.id) {
+            <div class="post-item">
+              <img src="{{item.coverImage}}" alt="" class="flex-shrink-0">
+              <div>
+                <h4><a [routerLink]="['/blogdetails/',item.id]">{{item.title}}</a></h4>
+                <time>{{item.createdAt | date}}</time>
+              </div>
+            </div>
+          }
+        </div><!--/Recent Posts Widget -->
+
+        <!-- içindekiler: yazıdaki ara başlıklar, tıklayınca o bölüme kayıyor -->
+        @if (toc.length) {
+          <div class="toc-widget widget-item">
+            <h3 class="widget-title">{{ 'blog.toc' | t }}</h3>
+            <ul>
+              @for (item of toc; track item.id) {
+                <li [class.active]="item.id === activeTocId">
+                  <a (click)="scrollTo(item.id)">{{ item.text }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+}

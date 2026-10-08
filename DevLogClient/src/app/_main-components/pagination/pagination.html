@@ -1,0 +1,20 @@
+<!-- tek sayfa varsa sayfalama göstermiyorum -->
+@if (totalPages > 1) {
+<nav class="devlog-pagination" aria-label="Sayfalama">
+  <button type="button" class="page-btn" [disabled]="currentPage === 1" (click)="goTo(currentPage - 1)">
+    <i class="bi bi-chevron-left"></i> <span class="d-none d-sm-inline">{{ 'pagination.prev' | t }}</span>
+  </button>
+
+  @for (page of pages; track $index) {
+    @if (page === null) {
+      <span class="page-dots">…</span>
+    } @else {
+      <button type="button" class="page-btn" [class.active]="page === currentPage" (click)="goTo(page)">{{ page }}</button>
+    }
+  }
+
+  <button type="button" class="page-btn" [disabled]="currentPage === totalPages" (click)="goTo(currentPage + 1)">
+    <span class="d-none d-sm-inline">{{ 'pagination.next' | t }}</span> <i class="bi bi-chevron-right"></i>
+  </button>
+</nav>
+}

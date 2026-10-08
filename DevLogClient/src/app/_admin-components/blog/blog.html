@@ -1,0 +1,278 @@
+<h3>{{ 'admin.blogs' | t }}</h3>
+
+<!-- veri gelene kadar tablo yerine yükleniyor göstergesi -->
+<div *ngIf="loading" class="text-center py-5"><div class="spinner-border text-primary"></div></div>
+<table *ngIf="!loading" class="table table-bordered table-hover">
+<thead>
+  <tr>
+    <th>#</th>
+    <th>{{ 'admin.coverImage' | t }}</th>
+    <th>{{ 'admin.blogTitle' | t }}</th>
+    <th>{{ 'admin.category' | t }}</th>
+    <th>{{ 'admin.author' | t }}</th>
+    <th>{{ 'admin.createdAt' | t }}</th>
+    <th>{{ 'admin.updatedAt' | t }}</th>
+    <th>{{ 'admin.options' | t }}</th>
+  </tr>
+</thead>
+
+<tbody>
+  <tr *ngFor="let item of pagedBlogs; let i = index;">
+
+<th>{{ (page - 1) * pageSize + i + 1 }}</th>
+<td> <img src="{{item.coverImage}}" style="width: 100px;height: auto;" alt="Blog Cover Image">  </td>
+<td>{{item.title}}</td>
+<td>{{item.category?.categoryName}}</td>
+<td>{{item.user?.firstName}} {{item.user?.lastName}}</td>
+<td>{{item.createdAt | date  }}</td>
+<td>{{item.updatedAt | date}}</td>
+<td>
+<!-- butonlar yan yana dursun diye flex kutu (ms-2 ile alt satıra kayıyordu) -->
+<div class="table-actions">
+  <button class="btn btn-outline-danger" (click)="delete(item.id)"> <i class="fa fa-trash"></i>  </button>
+  <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#editModal" (click)="onSelected(item)" ><i class="fa fa-edit"></i>  </button>
+</div>
+</td>
+  </tr>
+
+</tbody>
+
+</table>
+
+<!-- sayfalama: site tarafındaki pagination component'ini burada da kullanıyorum -->
+<app-pagination [totalItems]="blogs.length" [pageSize]="pageSize" [currentPage]="page" (pageChange)="page = $event"></app-pagination>
+
+<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createModal"> <i class="fa fa-plus"></i> {{ 'admin.newBlog' | t }}</button>
+
+
+<!-- Create Modal Start -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createModalLabel">{{ 'admin.createBlog' | t }}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+ <form #createForm="ngForm" (ngSubmit)="create(); createForm.resetForm()">
+      <div class="form-group">
+        <label>{{ 'admin.blogTitle' | t }}</label>
+        <input type="text" class="form-control" name="title" [(ngModel)]="newBlog.title" required="">
+         <div *ngIf="errors.length > 0">
+          <div *ngFor="let errorObj of errors">
+            <div *ngFor="let entry of (errorObj | keyvalue)">
+              <div *ngIf="entry.key==='Title'">
+              <span class="text-danger">{{entry.value}}</span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{ 'admin.coverImage' | t }}</label>
+        <input type="text" class="form-control" name="coverImage" [(ngModel)]="newBlog.coverImage" required="">
+         <div *ngIf="errors.length > 0">
+          <div *ngFor="let errorObj of errors">
+            <div *ngFor="let entry of (errorObj | keyvalue)">
+              <div *ngIf="entry.key==='CoverImage'">
+              <span class="text-danger">{{entry.value}}</span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+       <div class="form-group">
+        <label>{{ 'admin.blogImage' | t }}</label>
+        <input type="text" class="form-control" name="blogImage" [(ngModel)]="newBlog.blogImage" required="">
+        <div *ngIf="errors.length > 0">
+          <div *ngFor="let errorObj of errors">
+            <div *ngFor="let entry of (errorObj | keyvalue)">
+              <div *ngIf="entry.key==='BlogImage'">
+              <span class="text-danger">{{entry.value}}</span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+       <div class="form-group">
+        <label>{{ 'admin.description' | t }}</label>
+        <textarea type="text" class="form-control" name="description" [(ngModel)]="newBlog.description" required="" rows="12"></textarea>
+         <div *ngIf="errors.length > 0">
+          <div *ngFor="let errorObj of errors">
+            <div *ngFor="let entry of (errorObj | keyvalue)">
+              <div *ngIf="entry.key==='Description'">
+              <span class="text-danger">{{entry.value}}</span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+       <!-- etiketler (konular): birden fazla seçilebiliyor -->
+       <div class="form-group mb-2">
+        <label>{{ 'admin.tags' | t }}</label>
+        <div class="tag-select">
+          <label *ngFor="let tag of tags" class="tag-option" [class.selected]="hasTag(newBlog, tag.id)">
+            <input type="checkbox" [checked]="hasTag(newBlog, tag.id)" (change)="toggleTag(newBlog, tag.id)"> #{{ tag.name }}
+          </label>
+        </div>
+       </div>
+
+       <div class="form-group">
+        <label>{{ 'admin.category' | t }}</label>
+<select name="CategoryId" class="form-control" [(ngModel)]="newBlog.categoryId" required="">
+  <option selected disabled>{{ 'admin.selectCategory' | t }}</option>
+<option *ngFor="let category of categories" value="{{category.id}}">{{category.categoryName}}</option>
+
+</select>
+        <div *ngIf="errors.length > 0">
+          <div *ngFor="let errorObj of errors">
+            <div *ngFor="let entry of (errorObj | keyvalue)">
+              <div *ngIf="entry.key==='CategoryId'">
+              <span class="text-danger">{{entry.value}}</span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="form-group mt-3">
+        <label>{{ 'admin.blogTitleEn' | t }}</label>
+        <input type="text" class="form-control" name="titleEn" [(ngModel)]="newBlog.titleEn">
+      </div>
+      <div class="form-group">
+        <label>{{ 'admin.descriptionEn' | t }}</label>
+        <textarea class="form-control" name="descriptionEn" [(ngModel)]="newBlog.descriptionEn" rows="12"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> <i class="fa fa-times"></i> {{ 'admin.close' | t }}</button>
+        <button type="button" type="submit"  class="btn btn-primary" > <i class="fa fa-save"></i> {{ 'admin.save' | t }}</button>
+      </div>
+</form>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-- Create Modal End -->
+
+<!-- Update Modal Start -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editModalLabel">{{ 'admin.updateBlog' | t }}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+ <form #editForm="ngForm" (ngSubmit)="update()">
+      <div class="form-group">
+        <label>{{ 'admin.blogTitle' | t }}</label>
+        <input type="text" class="form-control" name="title" [(ngModel)]="editBlog.title" required="">
+         <div *ngIf="errors.length > 0">
+          <div *ngFor="let errorObj of errors">
+            <div *ngFor="let entry of (errorObj | keyvalue)">
+              <div *ngIf="entry.key==='Title'">
+              <span class="text-danger">{{entry.value}}</span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{ 'admin.coverImage' | t }}</label>
+        <input type="text" class="form-control" name="coverImage" [(ngModel)]="editBlog.coverImage" required="">
+         <div *ngIf="errors.length > 0">
+          <div *ngFor="let errorObj of errors">
+            <div *ngFor="let entry of (errorObj | keyvalue)">
+              <div *ngIf="entry.key==='CoverImage'">
+              <span class="text-danger">{{entry.value}}</span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+       <div class="form-group">
+        <label>{{ 'admin.blogImage' | t }}</label>
+        <input type="text" class="form-control" name="blogImage" [(ngModel)]="editBlog.blogImage" required="">
+        <div *ngIf="errors.length > 0">
+          <div *ngFor="let errorObj of errors">
+            <div *ngFor="let entry of (errorObj | keyvalue)">
+              <div *ngIf="entry.key==='BlogImage'">
+              <span class="text-danger">{{entry.value}}</span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+       <div class="form-group">
+        <label>{{ 'admin.description' | t }}</label>
+        <textarea type="text" class="form-control" name="description" [(ngModel)]="editBlog.description" required="" rows="12"></textarea>
+         <div *ngIf="errors.length > 0">
+          <div *ngFor="let errorObj of errors">
+            <div *ngFor="let entry of (errorObj | keyvalue)">
+              <div *ngIf="entry.key==='Description'">
+              <span class="text-danger">{{entry.value}}</span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+       <!-- etiketler (konular): birden fazla seçilebiliyor -->
+       <div class="form-group mb-2">
+        <label>{{ 'admin.tags' | t }}</label>
+        <div class="tag-select">
+          <label *ngFor="let tag of tags" class="tag-option" [class.selected]="hasTag(editBlog, tag.id)">
+            <input type="checkbox" [checked]="hasTag(editBlog, tag.id)" (change)="toggleTag(editBlog, tag.id)"> #{{ tag.name }}
+          </label>
+        </div>
+       </div>
+
+       <div class="form-group">
+        <label>{{ 'admin.category' | t }}</label>
+<select name="CategoryId" class="form-control" [(ngModel)]="editBlog.categoryId" required="">
+  <option selected disabled>{{ 'admin.selectCategory' | t }}</option>
+<option *ngFor="let category of categories" value="{{category.id}}">{{category.categoryName}}</option>
+
+</select>
+        <div *ngIf="errors.length > 0">
+          <div *ngFor="let errorObj of errors">
+            <div *ngFor="let entry of (errorObj | keyvalue)">
+              <div *ngIf="entry.key==='CategoryId'">
+              <span class="text-danger">{{entry.value}}</span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="form-group mt-3">
+        <label>{{ 'admin.blogTitleEn' | t }}</label>
+        <input type="text" class="form-control" name="titleEn" [(ngModel)]="editBlog.titleEn">
+      </div>
+      <div class="form-group">
+        <label>{{ 'admin.descriptionEn' | t }}</label>
+        <textarea class="form-control" name="descriptionEn" [(ngModel)]="editBlog.descriptionEn" rows="12"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> <i class="fa fa-times"></i> {{ 'admin.close' | t }}</button>
+        <button type="button" type="submit"  class="btn btn-primary" > <i class="fa fa-edit"></i> {{ 'admin.update' | t }}</button>
+      </div>
+</form>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-- Update Modal End -->

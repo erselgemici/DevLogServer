@@ -1,0 +1,14 @@
+/* dil seçici (TR | EN) */
+.lang-switch a {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--default-color);
+}
+
+.lang-switch a.active {
+  background-color: var(--accent-color);
+  color: #fff;
+}

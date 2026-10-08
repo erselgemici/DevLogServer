@@ -1,0 +1,65 @@
+<h3>{{ 'dash.title' | t }}</h3>
+
+@if (data) {
+  <!-- sayı kartları -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-lg-2"><div class="stat-card c1"><i class="fa fa-file-text"></i><b>{{ data.blogCount }}</b><span>{{ 'dash.blogs' | t }}</span></div></div>
+    <div class="col-6 col-lg-2"><div class="stat-card c2"><i class="fa fa-list"></i><b>{{ data.categoryCount }}</b><span>{{ 'dash.categories' | t }}</span></div></div>
+    <div class="col-6 col-lg-2"><div class="stat-card c3"><i class="fa fa-tags"></i><b>{{ data.tagCount }}</b><span>{{ 'dash.tags' | t }}</span></div></div>
+    <div class="col-6 col-lg-2"><div class="stat-card c4"><i class="fa fa-comments"></i><b>{{ data.commentCount }}</b><span>{{ 'dash.comments' | t }}</span></div></div>
+    <div class="col-6 col-lg-2"><div class="stat-card c5"><i class="fa fa-envelope"></i><b>{{ data.unreadMessageCount }}</b><span>{{ 'dash.unread' | t }}</span></div></div>
+    <div class="col-6 col-lg-2"><div class="stat-card c6"><i class="fa fa-users"></i><b>{{ data.userCount }}</b><span>{{ 'dash.users' | t }}</span></div></div>
+  </div>
+
+  <div class="row g-4">
+    <!-- kategorilere göre yazı sayısı (yatay çubuk grafik) -->
+    <div class="col-lg-7">
+      <div class="panel">
+        <h5>{{ 'dash.perCategory' | t }}</h5>
+        @for (item of data.blogsPerCategory; track item.name) {
+          <div class="bar-row">
+            <span class="bar-label">{{ item.name }}</span>
+            <div class="bar-track">
+              <div class="bar-fill" [style.width.%]="barWidth(item.count)"></div>
+            </div>
+            <span class="bar-value">{{ item.count }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- en çok yazan yazarlar -->
+    <div class="col-lg-5">
+      <div class="panel">
+        <h5>{{ 'dash.topAuthors' | t }}</h5>
+        @for (item of data.topAuthors; track item.fullName; let i = $index) {
+          <div class="author-row">
+            <span class="rank">{{ i + 1 }}</span>
+            <img [src]="item.imageUrl || 'assets/img/person-2.jpg'" alt="">
+            <span class="name">{{ item.fullName }}</span>
+            <span class="count">{{ item.blogCount }} {{ 'dash.blogs' | t }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- son yorumlar -->
+    <div class="col-12">
+      <div class="panel">
+        <h5>{{ 'dash.latestComments' | t }}</h5>
+        @for (item of data.latestComments; track $index) {
+          <div class="comment-row">
+            <div class="d-flex justify-content-between">
+              <b>{{ item.fullName }}</b>
+              <small>{{ item.commentDate | date:'short' }}</small>
+            </div>
+            <a [routerLink]="['/blogdetails', item.blogId]" target="_blank">{{ item.blogTitle }}</a>
+            <p>{{ item.body | slice:0:160 }}{{ item.body.length > 160 ? '...' : '' }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="text-center py-5"><div class="spinner-border text-primary"></div></div>
+}

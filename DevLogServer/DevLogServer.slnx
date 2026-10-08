@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Core/">
+    <Project Path="Core/DevLog.Application/DevLog.Application.csproj" Id="c6cc401e-310c-43de-a1e3-22ba15cd13f9" />
+    <Project Path="Core/DevLog.Domain/DevLog.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="Infrastructure/DevLog.Infrastructure/DevLog.Infrastructure.csproj" />
+    <Project Path="Infrastructure/DevLog.Persistence/DevLog.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/Presentation/">
+    <Project Path="Presentation/DevLog.API/DevLog.API.csproj" />
+  </Folder>
+</Solution>

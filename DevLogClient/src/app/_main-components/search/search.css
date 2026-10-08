@@ -1,0 +1,33 @@
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 2px solid rgba(99, 102, 241, 0.25);
+  border-radius: 14px;
+  padding: 12px 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.search-box:focus-within {
+  border-color: #6366f1;
+}
+
+.search-box i {
+  font-size: 20px;
+  color: #6366f1;
+}
+
+.search-box input {
+  flex: 1;
+  border: 0;
+  outline: none;
+  font-size: 18px;
+  background: transparent;
+}
+
+.result-info {
+  color: #64748b;
+  margin-bottom: 20px;
+}

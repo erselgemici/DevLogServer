@@ -1,0 +1,148 @@
+/* yorumlarda baş harf avatarı */
+.initials-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+  color: #fff;
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  text-transform: uppercase;
+}
+
+.initials-avatar.small {
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* okuma ilerleme çubuğu: position fixed ile sayfanın en üstüne sabitledim */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
+  z-index: 2000;
+  transition: width 0.1s linear;
+}
+
+/* yazının etiketleri */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0 10px;
+}
+
+.post-tags a {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.08);
+  color: #4f46e5;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.post-tags a:hover {
+  background: #6366f1;
+  color: #fff;
+}
+
+/* ilgili yazılar */
+.related-posts {
+  margin: 10px 0 30px;
+}
+
+.related-posts h4 {
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+/* yorum cevapları: biraz içeriden ve sol çizgili */
+.comment-reply {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-left: 3px solid #6366f1;
+  background: rgba(99, 102, 241, 0.05);
+  border-radius: 0 12px 12px 0;
+}
+
+.comment-reply h6 {
+  margin: 0;
+  font-weight: 700;
+}
+
+.comment-reply time {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.comment-reply p {
+  margin: 6px 0 0;
+}
+
+.reply-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.author-badge {
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #6366f1;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+/* içindekiler: kaydırırken ekranda kalsın diye sticky
+   NOT: sticky eleman sadece kendi kapsayıcısının (parent) yüksekliği içinde yapışık kalıyor,
+   o yüzden sidebar'ın kapsayıcısını sütun boyunca uzattım ve içindekileri en sona koydum */
+.sidebar .widgets-container {
+  height: 100%;
+}
+
+.toc-widget {
+  position: sticky;
+  top: 100px;
+}
+
+.toc-widget ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-widget li {
+  border-left: 2px solid #e2e8f0;
+}
+
+.toc-widget li a {
+  display: block;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #475569;
+  cursor: pointer;
+}
+
+.toc-widget li.active {
+  border-left-color: #6366f1;
+}
+
+.toc-widget li.active a,
+.toc-widget li a:hover {
+  color: #4f46e5;
+  font-weight: 600;
+}

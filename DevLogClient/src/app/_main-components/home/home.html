@@ -1,0 +1,150 @@
+ <!-- Slider Section -->
+    <section id="slider" class="slider section dark-background">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="swiper init-swiper">
+          <div class="swiper-wrapper">
+
+            @for (item of latestBlogs; track $index) {
+            <div class="swiper-slide" style="background-image: url('{{item.coverImage}}');">
+              <div class="content">
+                <h2><a [routerLink]="['/blogdetails/',item.id]">{{item.title}}</a></h2>
+                <p>{{item.summary | excerpt:150}}</p>
+              </div>
+            </div>
+          }
+
+
+          </div>
+
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section><!-- /Slider Section -->
+
+    <!-- popüler konular: en çok yazısı olan etiketler, tıklayınca o konudaki bütün yazılar -->
+    @if (tags.length) {
+      <section class="popular-topics">
+        <div class="container">
+          <h2>{{ 'home.topics' | t }}</h2>
+          <div class="tag-chips">
+            @for (tag of tags.slice(0, 16); track tag.id) {
+              <a [routerLink]="['/tag', tag.slug]">#{{ tag.name }} <span>{{ tag.blogCount }}</span></a>
+            }
+          </div>
+        </div>
+      </section>
+    }
+
+
+@for (item of categoriesWithBlogs; track $index) {
+  @if (item.blogs?.length) {
+    <!-- Culture Category Section -->
+    <section id="culture-category" class="culture-category section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <div class="section-title-container d-flex align-items-center justify-content-between">
+          <h2>{{item.categoryName}}</h2>
+          <!-- kategorinin bütün yazıları ayrı sayfada, sayfalı şekilde -->
+          <a [routerLink]="['/category', item.id]" class="view-all">{{ 'home.viewAll' | t }} ({{ item.blogs.length }}) <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row">
+          <div class="col-md-9">
+@for (blog of item.blogs; track $index) {
+  @if($index===0){
+
+
+            <div class="d-lg-flex post-entry">
+              <a [routerLink]="['/blogdetails/',blog.id]" class="me-4 thumbnail mb-4 mb-lg-0 d-inline-block">
+                <img src="{{blog.coverImage}}" alt="" class="img-fluid">
+              </a>
+              <div>
+                <div class="post-meta"><span class="date">{{item.categoryName}}</span> <span class="mx-1">•</span> <span>{{blog.createdAt | date}}</span></div>
+                <h3><a [routerLink]="['/blogdetails/',blog.id]">{{blog.title}}</a></h3>
+                <p>{{blog.summary | excerpt:200}}</p>
+                <div class="d-flex align-items-center author">
+                  <div class="photo"><img src="{{blog.user.imageUrl || 'assets/img/person-2.jpg'}}" alt="" class="img-fluid"></div>
+                  <div class="name">
+                    <h3 class="m-0 p-0">{{blog.user.firstName}} {{blog.user.lastName}}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+              }
+          }
+
+            <div class="row">
+              <div class="col-lg-4">
+                <!-- üçüncü ve dördüncü yazı (sayfa uzamasın diye sınırladım) -->
+                @for (blog of item.blogs; track $index) {
+                @if ($index >= 2 && $index < 4) {
+                <div class="post-list border-bottom">
+                  <a [routerLink]="['/blogdetails/',blog.id]"><img src="{{blog.coverImage}}" alt="" class="img-fluid"></a>
+                  <div class="post-meta"><span class="date">{{item.categoryName}}</span> <span class="mx-1">•</span> <span>{{blog.createdAt | date}}</span></div>
+                  <h2 class="mb-2"><a [routerLink]="['/blogdetails/',blog.id]">{{blog.title}}</a></h2>
+                  <span class="author mb-3 d-block">{{blog.user.firstName}} {{blog.user.lastName}}</span>
+                  <p class="mb-4 d-block">{{blog.summary | excerpt:100}}</p>
+                </div>
+              }
+              }
+
+
+              </div>
+              <div class="col-lg-8">
+                <!-- ikinci yazı büyük kart olarak -->
+                @for (blog of item.blogs; track $index) {
+                  @if ($index===1) {
+                <div class="post-list">
+                  <a [routerLink]="['/blogdetails/',blog.id]"><img src="{{blog.coverImage}}" alt="" class="img-fluid"></a>
+                  <div class="post-meta"><span class="date">{{item.categoryName}}</span> <span class="mx-1">•</span> <span>{{blog.createdAt | date}}</span></div>
+                  <h2 class="mb-2"><a [routerLink]="['/blogdetails/',blog.id]">{{blog.title}}</a></h2>
+                  <span class="author mb-3 d-block">{{blog.user.firstName}} {{blog.user.lastName}}</span>
+                  <p class="mb-4 d-block">{{blog.summary | excerpt:150}}</p>
+                </div>
+              }
+              }
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+
+            <!-- yan liste: 5. yazıdan itibaren en fazla 5 başlık,
+                 kategoride az yazı varsa hepsinin başlığını gösteriyorum -->
+            @for (blog of item.blogs; track $index) {
+            @if (item.blogs.length <= 4 || ($index >= 4 && $index < 9)) {
+            <div class="post-list border-bottom">
+              <div class="post-meta"><span class="date">{{item.categoryName}}</span> <span class="mx-1">•</span> <span>{{blog.createdAt | date}}</span></div>
+              <h2 class="mb-2"><a [routerLink]="['/blogdetails/',blog.id]">{{blog.title}}</a></h2>
+              <span class="author mb-3 d-block">{{blog.user.firstName}} {{blog.user.lastName}}</span>
+            </div>
+          }
+          }
+
+            @if (item.blogs.length > 9) {
+              <a [routerLink]="['/category', item.id]" class="view-all mt-3 d-inline-block">+{{ item.blogs.length - 9 }} {{ 'category.postCount' | t }} <i class="bi bi-arrow-right"></i></a>
+            }
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Culture Category Section -->
+  }
+  }
+

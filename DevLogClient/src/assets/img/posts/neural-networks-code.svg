@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4c1d95"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+<rect width="1200" height="640" fill="url(#g)"/>
+<rect x="60" y="50" width="1080" height="540" rx="16" fill="#1e1e2e"/>
+<circle cx="100" cy="88" r="9" fill="#ff5f57"/><circle cx="130" cy="88" r="9" fill="#febc2e"/><circle cx="160" cy="88" r="9" fill="#28c840"/>
+<text x="600" y="95" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" fill="#a6adc8" text-anchor="middle">perceptron.py</text>
+<text x="100" y="160" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 1</text>
+<text x="150" y="160" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">def train(samples, epochs=10, lr=0.1):</text>
+<text x="100" y="204" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 2</text>
+<text x="150" y="204" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">    w, b = [0.0, 0.0], 0.0</text>
+<text x="100" y="248" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 3</text>
+<text x="150" y="248" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">    for _ in range(epochs):</text>
+<text x="100" y="292" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 4</text>
+<text x="150" y="292" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">        for (x1, x2), target in samples:</text>
+<text x="100" y="336" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 5</text>
+<text x="150" y="336" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">            out = 1 if w[0]*x1 + w[1]*x2 + b &gt; 0 else 0</text>
+<text x="100" y="380" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 6</text>
+<text x="150" y="380" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">            err = target - out</text>
+<text x="100" y="424" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 7</text>
+<text x="150" y="424" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">            w[0] += lr * err * x1</text>
+<text x="100" y="468" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 8</text>
+<text x="150" y="468" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">            w[1] += lr * err * x2</text>
+<text x="100" y="512" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a"> 9</text>
+<text x="150" y="512" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">            b += lr * err</text>
+<text x="100" y="556" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="22" fill="#45475a">10</text>
+<text x="150" y="556" font-family="Consolas, 'Courier New', Menlo, monospace" font-size="24" fill="#cdd6f4" xml:space="preserve">    return w, b</text>
+</svg>

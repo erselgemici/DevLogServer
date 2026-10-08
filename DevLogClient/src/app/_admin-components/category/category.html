@@ -1,0 +1,117 @@
+<h3>{{ 'admin.categories' | t }}</h3>
+
+<table class="table table-bordered table-hover">
+  <thead>
+
+
+    <tr>
+      <th>#</th>
+      <th>{{ 'admin.categoryName' | t }}</th>
+      <th>{{ 'admin.options' | t }}</th>
+    </tr>
+  </thead>
+<tbody>
+  <tr *ngFor="let item of categories; let i = index;">
+    <th>{{i+1}}</th>
+    <td>{{item.categoryName}}</td>
+    <td>
+      <!-- butonlar yan yana dursun diye flex kutu (ms-2 ile alt satıra kayıyordu) -->
+      <div class="table-actions">
+        <button class="btn btn-outline-danger" (click)="delete(item.id)"> <i class="fa fa-trash"></i>  </button>
+        <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#editModal" (click)="onSelected(item)" ><i class="fa fa-edit"></i>  </button>
+      </div>
+    </td>
+  </tr>
+</tbody>
+</table>
+
+<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createModal"> <i class="fa fa-plus"></i> {{ 'admin.newCategory' | t }}</button>
+
+
+
+
+
+<!-- Create Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createModalLabel">{{ 'admin.createCategory' | t }}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+ <form #createForm="ngForm" (ngSubmit)="createCategory(); createForm.resetForm()">
+      <div class="form-group">
+        <label>{{ 'admin.categoryName' | t }}</label>
+        <input type="text" class="form-control" name="categoryName" [(ngModel)]="newCategory.categoryName" required="">
+        <div *ngIf="errors.length > 0">
+          <div *ngFor="let errorObj of errors">
+            <div *ngFor="let entry of (errorObj | keyvalue)">
+              <div *ngIf="entry.key==='CategoryName'">
+              <span class="text-danger">{{entry.value}}</span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mt-3">
+        <label>{{ 'admin.categoryNameEn' | t }}</label>
+        <input type="text" class="form-control" name="categoryNameEn" [(ngModel)]="newCategory.categoryNameEn">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> <i class="fa fa-times"></i> {{ 'admin.close' | t }}</button>
+        <button type="button" type="submit"  class="btn btn-primary"> <i class="fa fa-save"></i> {{ 'admin.save' | t }}</button>
+      </div>
+</form>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editModalLabel">{{ 'admin.updateCategory' | t }}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+ <form #editForm="ngForm" (ngSubmit)="update()">
+      <div class="form-group">
+        <label>{{ 'admin.categoryName' | t }}</label>
+        <input type="text" class="form-control" name="categoryName" [(ngModel)]="editCategory.categoryName" required="">
+          <div *ngIf="errors.length > 0">
+          <div *ngFor="let errorObj of errors">
+            <div *ngFor="let entry of (errorObj | keyvalue)">
+              <div *ngIf="entry.key==='CategoryName'">
+              <span class="text-danger">{{entry.value}}</span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mt-3">
+        <label>{{ 'admin.categoryNameEn' | t }}</label>
+        <input type="text" class="form-control" name="categoryNameEn" [(ngModel)]="editCategory.categoryNameEn">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>  {{ 'admin.close' | t }}</button>
+        <button type="button" type="submit"  class="btn btn-primary" [disabled]="editForm.invalid || !editForm.dirty"> <i class="fa fa-edit"></i> {{ 'admin.update' | t }}</button>
+      </div>
+</form>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
