@@ -192,8 +192,18 @@ Bazı örnekler (tam liste Scalar arayüzünde):
 | PUT | `/api/users/role` | Kullanıcı rolünü değiştirme | Admin |
 
 ## Ekran görüntüleri
-
-
+<img width="947" height="470" alt="ss0" src="https://github.com/user-attachments/assets/b8666da9-2c31-411e-bf12-922ba055a42f" />
+<img width="947" height="470" alt="ss1" src="https://github.com/user-attachments/assets/d7505eb7-efd7-4a7e-bb30-409fc719d207" />
+<img width="950" height="471" alt="ss2" src="https://github.com/user-attachments/assets/3e099e1b-8e6d-4ce7-86ad-08a556f02875" />
+<img width="947" height="470" alt="ss3" src="https://github.com/user-attachments/assets/d9537362-2a89-4902-9ae7-bcef603c2c28" />
+<img width="947" height="470" alt="ss4" src="https://github.com/user-attachments/assets/dadc350f-c322-44e1-9a13-a55b21fa5ec5" />
+<img width="947" height="470" alt="ss5" src="https://github.com/user-attachments/assets/e414dac8-b92f-4adb-9a40-3f23d8535046" />
+<img width="956" height="466" alt="ss6" src="https://github.com/user-attachments/assets/dfa35637-44a4-4a96-8ec7-25b131092f37" />
+<img width="959" height="470" alt="ss7" src="https://github.com/user-attachments/assets/4ecb7c63-8405-4307-ba00-2ab489dc7098" />
+<img width="956" height="470" alt="ss8" src="https://github.com/user-attachments/assets/79534e6f-59fd-4a9a-8797-9f5c49e226b0" />
+<img width="956" height="470" alt="ss9" src="https://github.com/user-attachments/assets/702cfd57-93b4-4d6c-89d7-0628b18796fd" />
+<img width="956" height="471" alt="ss10" src="https://github.com/user-attachments/assets/9d8eeee9-3ed3-4b24-ab77-27db2ab00794" />
+<img width="956" height="470" alt="ss11" src="https://github.com/user-attachments/assets/76ac30b5-3f97-4325-ae9d-6eeeddb43f9d" />
 
 ## Bu projede öğrendiklerim
 
