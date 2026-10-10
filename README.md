@@ -217,4 +217,4 @@ Bazı örnekler (tam liste Scalar arayüzünde):
 
 
 
-[LinkedIn](https://www.linkedin.com/in/erselgemici) · [GitHub](https://github.com/erselgemici)
+[LinkedIn](https://www.linkedin.com/in/ersel-gemici) · [GitHub](https://github.com/erselgemici)
